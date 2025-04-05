@@ -1,0 +1,149 @@
+version: 2
+
+macros:
+  # Generic Tests
+  - name: dqm_completeness_null_count
+    description: "Validates the completeness of a column by checking null values" 
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested."
+      - name: column_name
+        type: string
+        description: "The column to check for null values."
+      - name: threshold
+        type: number
+        description: "Threshold value used in downstream processing (via meta config)."
+        default: 0
+      - name: threshold_type
+        type: string
+        description: "Type of threshold ('static_number' or 'static_percentage') used in downstream processing (via meta config)."
+        default: 'static_percentage'
+
+  - name: dqm_conformance_standard_concept
+    description: "Validates that concept IDs are valid standard concepts in the OMOP vocabulary"
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested."
+      - name: column_name
+        type: string
+        description: "The column containing concept IDs to validate."
+      - name: threshold
+        type: number
+        description: "Threshold value used in downstream processing (via meta config)."
+        default: 0
+      - name: threshold_type
+        type: string
+        description: "Type of threshold ('static_number' or 'static_percentage') used in downstream processing (via meta config)."
+        default: 'static_percentage'
+
+  - name: dqm_plausibility_date_order
+    description: "Validates that an end date is not before a start date"
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested."
+      - name: start_date_column
+        type: string
+        description: "The column containing the start date/timestamp."
+      - name: end_date_column
+        type: string
+        description: "The column containing the end date/timestamp."
+      - name: threshold
+        type: number
+        description: "Threshold value used in downstream processing (via meta config)."
+        default: 0
+      - name: threshold_type
+        type: string
+        description: "Type of threshold ('static_number' or 'static_percentage') used in downstream processing (via meta config)."
+        default: 'static_percentage'
+
+  - name: dqm_plausibility_high_value
+    description: "Validates that values do not exceed a specified maximum"
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested."
+      - name: column_name
+        type: string
+        description: "The column to check values in."
+      - name: max_value
+        type: any
+        description: "The maximum allowed value (use quotes for dates, e.g., \"'2020-01-01'\")."
+      - name: threshold
+        type: number
+        description: "Threshold value used in downstream processing (via meta config)."
+        default: 0
+      - name: threshold_type
+        type: string
+        description: "Type of threshold ('static_number' or 'static_percentage') used in downstream processing (via meta config)."
+        default: 'static_percentage'
+
+  - name: dqm_plausibility_low_value
+    description: "Validates that values are not below a specified minimum"
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested."
+      - name: column_name
+        type: string
+        description: "The column to check values in."
+      - name: min_value
+        type: any
+        description: "The minimum allowed value (use quotes for dates, e.g., \"'2020-01-01'\")."
+      - name: threshold
+        type: number
+        description: "Threshold value used in downstream processing (via meta config)."
+        default: 0
+      - name: threshold_type
+        type: string
+        description: "Type of threshold ('static_number' or 'static_percentage') used in downstream processing (via meta config)."
+        default: 'static_percentage'
+
+  # Anomaly Tests
+  - name: dqm_row_count_anomalies
+    description: "Returns total row count for downstream anomaly detection"
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested."
+      - name: threshold
+        type: number
+        description: "Configuration value (e.g., deviation percentage) used by downstream anomaly detection logic (via meta config)."
+        default: 10
+
+  # Singular Tests
+  # Note: These require specific OMOP tables to exist in the target project.
+  - name: dqm_plausibility_adult_paediatric_diagnoses
+    description: "Returns percentage of paediatric diagnoses that are assigned to adult patients"
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested (standard argument, not directly used in internal logic)."
+      - name: threshold
+        type: number
+        description: "Threshold value used in downstream processing (via meta config)."
+        default: 0
+
+  - name: dqm_plausibility_events_after_death
+    description: "Returns percentage of clinical events that occur after a death date"
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested (standard argument, not directly used in internal logic)."
+      - name: threshold
+        type: number
+        description: "Threshold value used in downstream processing (via meta config)."
+        default: 0
+
+  - name: dqm_plausibility_gender_specific_diagnoses
+    description: "Returns percentage of gender-specific diagnoses that do not match patient gender"
+    arguments:
+      - name: model
+        type: relation
+        description: "The model being tested (standard argument, not directly used in internal logic)."
+      - name: threshold
+        type: number
+        description: "Threshold value used in downstream processing (via meta config)."
+        default: 0

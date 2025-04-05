@@ -1,0 +1,32 @@
+/* Custom CSS for Data Quality Dashboard */
+
+/* Adjust logo size in sidebar */
+img[data-testid="stLogo"] {
+    height: 7.5rem; /* Keep existing size or adjust as needed */
+}
+
+/* Main header style */
+.main-header {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    padding-top: 1em; /* Add some space at the top */
+    text-align: center; /* Center align the main page headers */
+}
+
+/* Sub-header style (e.g., for metric sections) */
+.metric-header {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center; /* Center align the metric headers */
+}
+
+/* Style for timestamp */
+.timestamp-header {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1.5em; /* Add space below timestamp */
+    font-size: 1.1em;
+    text-align: center; /* Center align the timestamp */
+}

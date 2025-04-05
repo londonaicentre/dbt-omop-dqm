@@ -1,0 +1,18 @@
+name: 'dbt_omop_dqm'
+version: '0.1.0'
+config-version: 2
+profile: 'default' # This profile is not used by package consumers but often needed by dbt
+
+# Location of macros within the package
+macro-paths: ["macros"]
+
+# Define models here ONLY if you are including example/test models within the package itself.
+# Otherwise, leave this empty or remove it.
+# models:
+#   dbt_omop_dqm:
+#     +materialized: view
+
+# Clean targets are directories cleaned by `dbt clean`
+clean-targets:
+  - "target"
+  - "dbt_packages"

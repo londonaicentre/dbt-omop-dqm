@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dqm-dashboard"
+version = "0.1.0"
+description = "Streamlit dashboard for visualizing dbt data quality monitoring results."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "loguru>=0.7.3",
+    "pandas>=2.2.3",
+    "plotly>=6.0.1",
+    "psycopg[binary,pool]>=3.2.6",
+    "pytest>=8.3.5",
+    "streamlit>=1.44.1",
+]
+
+[project.scripts]
+dqm-dashboard = "dqm_dashboard.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dqm_dashboard"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"src/dqm_dashboard/static" = "static"
+
+[tool.hatch.build]
+include = ["static/"]
