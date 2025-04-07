@@ -21,11 +21,11 @@
                 severity='warn',
                 meta={
                     'category': 'anomaly_detection',
-                    'threshold_type': 'moving_average',  -- Indicate downstream logic type
+                    'threshold_type': 'moving_average',
                     'threshold': threshold
                 },
                 description='Returns total row count for downstream anomaly detection',
-                fail_calc="violations" -- Returns the row count itself
+                fail_calc="violations"
             )
         }}
 
