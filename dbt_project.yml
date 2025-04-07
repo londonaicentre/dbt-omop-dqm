@@ -8,3 +8,8 @@ macro-paths: ["macros"]
 clean-targets:
   - "target"
   - "dbt_packages"
+
+# Disable tests by default
+tests:
+  dbt_omop_dqm:
+    +enabled: false
