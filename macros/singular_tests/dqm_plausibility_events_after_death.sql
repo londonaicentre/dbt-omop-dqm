@@ -31,7 +31,7 @@
             select
                 master_person_id,
                 death_date
-            from {{ ref('ext_death') }}
+            from {{ model }}
             where death_date is not null
         ),
 
