@@ -1,4 +1,4 @@
-{% test dqm_plausibility_gender_specific_diagnoses(threshold = 0) %}
+{% test dqm_plausibility_gender_specific_diagnoses(model,threshold = 0) %}
 
         /*
             NEEDS TESTING!

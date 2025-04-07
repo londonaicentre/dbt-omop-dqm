@@ -1,4 +1,4 @@
-{% test dqm_plausibility_adult_paediatric_diagnoses(threshold = 0) %}
+{% test dqm_plausibility_adult_paediatric_diagnoses(model,threshold = 0) %}
 
         /*
             NEEDS TESTING!

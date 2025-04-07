@@ -1,4 +1,4 @@
-{% test dqm_plausibility_events_after_death(threshold = 0) %}
+{% test dqm_plausibility_events_after_death(model,threshold = 0) %}
 
         /*
             NEEDS TESTING!
