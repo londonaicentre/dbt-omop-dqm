@@ -23,8 +23,7 @@
                     'threshold': threshold
                 },
                 description='Returns percentage of clinical events that occur after a death date',
-                fail_calc='pct_violated_rows',
-                enabled=false
+                fail_calc='pct_violated_rows'
             )
         }}
 

@@ -22,8 +22,7 @@
                     'threshold': threshold
                 },
                 description='Returns percentage of gender-specific diagnoses that do not match patient gender',
-                fail_calc='pct_violated_rows',
-                enabled=false
+                fail_calc='pct_violated_rows'
             )
         }}
 

@@ -22,8 +22,7 @@
                     'threshold': threshold
                 },
                 description='Returns percentage of paediatric diagnoses that are assigned to adult patients',
-                fail_calc='pct_violated_rows',
-                enabled=false
+                fail_calc='pct_violated_rows'
             )
         }}
 
