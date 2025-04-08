@@ -31,9 +31,9 @@
                 co.master_person_id,
                 co.condition_start_datetime,
                 co.condition_source_value
-            from {{ ref('ext_condition_occurrence') }} co
+            from {{ model }} co
             inner join {{ ref('base_internal__paediatric_diagnosis_codes') }} pc
-                on co.condition_source_value = pc.diagnosis_code
+                on co.condition_source_value = pc.code
         ),
 
         diagnosis_checks as (
