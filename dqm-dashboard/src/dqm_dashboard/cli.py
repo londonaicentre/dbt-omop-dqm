@@ -19,10 +19,10 @@ def main():
 
         # Construct the command to run streamlit
         command = [sys.executable, "-m", "streamlit", "run", app_file_path]
-
-        # Run the command
-        print(f"Running command: {' '.join(command)}")
-        subprocess.run(command, check=True)
+        try:
+            subprocess.run(command, check=True)
+        except KeyboardInterrupt:
+            sys.exit(0)
 
     except subprocess.CalledProcessError as e:
         print(
