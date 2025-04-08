@@ -31,15 +31,15 @@
                 co.master_person_id,
                 co.condition_source_value,
                 case
-                    when m.diagnosis_code is not null then 'Male'
-                    when f.diagnosis_code is not null then 'Female'
+                    when m.code is not null then 'Male'
+                    when f.code is not null then 'Female'
                 end as expected_gender
             from {{ model }} co
             left join {{ ref('base_internal__male_diagnosis_codes') }} m
                 on co.condition_source_value = m.code
             left join {{ ref('base_internal__female_diagnosis_codes') }} f
                 on co.condition_source_value = f.code
-            where m.diagnosis_code is not null or f.code is not null
+            where m.code is not null or f.code is not null
         ),
 
         gender_checks as (

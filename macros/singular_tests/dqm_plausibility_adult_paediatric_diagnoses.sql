@@ -40,7 +40,7 @@
             select
                 case
                     when p.birth_datetime is null then null
-                    when date_diff(pc.condition_start_datetime, p.birth_datetime, year) > 18 then 1
+                    when date_diff(pc.condition_start_datetime, p.birth_datetime, 'year') > 18 then 1
                     else 0
                 end as is_violation
             from paediatric_conditions pc
