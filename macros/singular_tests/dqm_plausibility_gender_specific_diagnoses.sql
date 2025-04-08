@@ -56,11 +56,7 @@
         )
 
         select
-            round(
-                (sum(case when is_violation is not null then is_violation else 0 end)::float /
-                 nullif(count(*), 0)) * 100,
-                0
-            )::int as num_violated_rows
+            sum(case when is_violation is not null then is_violation else 0 end) as num_violated_rows
         from gender_checks
 
 {% endtest %}
