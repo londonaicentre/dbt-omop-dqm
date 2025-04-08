@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "dqm-dashboard"
 version = "0.1.0"
-description = "Streamlit dashboard for visualizing dbt data quality monitoring results."
+description = "Package to parse,transform and visualise dqm using Streamlit"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -18,7 +18,9 @@ dependencies = [
 ]
 
 [project.scripts]
-dqm-dashboard = "dqm_dashboard.cli:main"
+parse-artifacts = "dqm_dashboard.parse_dbt_artifacts:main"
+transform-artifacts = "dqm_dashboard.transform_run_results:main"
+streamlit-dashboard = "dqm_dashboard.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dqm_dashboard"]

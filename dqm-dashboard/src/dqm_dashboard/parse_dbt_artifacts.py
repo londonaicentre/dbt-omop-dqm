@@ -21,8 +21,8 @@ class ArtifactNotFoundError(ArtifactProcessingError):
     pass
 
 
-class ProjectDirError(ArtifactProcessingError):
-    """Raised when the project directory is not specified or found."""
+class ArtifactsDirError(ArtifactProcessingError):
+    """Raised when the artifacts directory is not specified or found."""
 
     pass
 
@@ -79,10 +79,10 @@ DB_CONFIG = {
 }
 
 
-def verify_artifacts(project_root, run_results_path, manifest_path):
+def verify_artifacts(artifacts_dir, run_results_path, manifest_path):
     """Verify that required dbt artifact files exist."""
-    if not project_root.exists():
-        raise ProjectDirError(f"Project directory does not exist: {project_root}")
+    if not artifacts_dir.exists():
+        raise ArtifactsDirError(f"Artifacts directory does not exist: {artifacts_dir}")
 
     missing_files = []
     if not run_results_path.exists():
@@ -95,26 +95,26 @@ def verify_artifacts(project_root, run_results_path, manifest_path):
         logger.info(
             "Please run dbt first to generate these files or check your project path."
         )
-        logger.error(f"Expected files in: {project_root}")
+        logger.error(f"Expected files in: {artifacts_dir}")
         # Raise exception instead of exiting
         raise ArtifactNotFoundError(
             f"The following files were not found: {', '.join(missing_files)}"
         )
 
 
-def get_project_root(args):
+def get_artifacts_dir(args):
     """Gets artifacts directory from arguments or environment and returns artifact paths."""
-    if args.project_dir:
-        root = Path(args.project_dir)
-    elif project_dir := os.getenv("DBT_PROJECT_ROOT"):
-        root = Path(project_dir)
+    if args.artifacts_dir:
+        root = Path(args.artifacts_dir)
+    elif artifacts_dir := os.getenv("DBT_ARTIFACTS_DIR"):
+        root = Path(artifacts_dir)
     else:
         logger.error(
-            "DBT Artifacts directory must be specified via --project-dir argument or DBT_PROJECT_ROOT environment variable"
+            "DBT Artifacts directory must be specified via --artifacts-dir argument or DBT_ARTIFACTS_DIR environment variable"
         )
         # Raise exception instead of exiting
-        raise ProjectDirError(
-            "DBT Artifacts directory must be specified via --project-dir argument or DBT_PROJECT_ROOT environment variable"
+        raise ArtifactsDirError(
+            "DBT Artifacts directory must be specified via --artifacts-dir argument or DBT_ARTIFACTS_DIR environment variable"
         )
 
     # Return root and artifact paths
@@ -318,16 +318,16 @@ def main():
         description="Parse and load dbt artifacts into PostgreSQL."
     )
     parser.add_argument(
-        "--project-dir",
+        "--artifacts-dir",
         type=str,
-        help="Path to the directory containing dbt artifacts (manifest.json and run_results.json) (required if DBT_PROJECT_ROOT env var is not set)",
+        help="Path to the directory containing dbt artifacts (manifest.json and run_results.json) (required if DBT_ARTIFACTS_DIR env var is not set)",
     )
     args = parser.parse_args()
 
-    # Get project paths and verify artifacts
-    project_root, run_results_path, manifest_path = get_project_root(args)
-    logger.info(f"Using dbt artifacts directory: {project_root}")
-    verify_artifacts(project_root, run_results_path, manifest_path)
+    # Get artifacts paths and verify them
+    artifacts_dir, run_results_path, manifest_path = get_artifacts_dir(args)
+    logger.info(f"Using dbt artifacts directory: {artifacts_dir}")
+    verify_artifacts(artifacts_dir, run_results_path, manifest_path)
 
     try:
         with psycopg.connect(**DB_CONFIG) as conn:
