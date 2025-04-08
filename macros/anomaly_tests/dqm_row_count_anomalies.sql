@@ -21,7 +21,7 @@
                 severity='warn',
                 meta={
                     'category': 'anomaly_detection',
-                    'threshold_type': 'moving_average',
+                    'threshold_type': 'static_percentage',
                     'threshold': threshold
                 },
                 description='Returns total row count for downstream anomaly detection',

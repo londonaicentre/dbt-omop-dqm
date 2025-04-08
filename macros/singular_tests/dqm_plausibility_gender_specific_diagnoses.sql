@@ -18,11 +18,11 @@
                 severity='warn',
                 meta={
                     'category': 'plausibility',
-                    'threshold_type': 'static_percentage',
+                    'threshold_type': 'static_number',
                     'threshold': threshold
                 },
                 description='Returns percentage of gender-specific diagnoses that do not match patient gender',
-                fail_calc='pct_violated_rows'
+                fail_calc='num_violated_rows'
             )
         }}
 
@@ -60,7 +60,7 @@
                 (sum(case when is_violation is not null then is_violation else 0 end)::float /
                  nullif(count(*), 0)) * 100,
                 0
-            )::int as pct_violated_rows
+            )::int as num_violated_rows
         from gender_checks
 
 {% endtest %}
