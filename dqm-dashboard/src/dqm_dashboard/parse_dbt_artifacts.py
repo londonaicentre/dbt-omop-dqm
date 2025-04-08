@@ -95,7 +95,7 @@ def verify_artifacts(project_root, run_results_path, manifest_path):
         logger.info(
             "Please run dbt first to generate these files or check your project path."
         )
-        logger.error(f"Expected files in: {project_root}/target/")
+        logger.error(f"Expected files in: {project_root}")
         # Raise exception instead of exiting
         raise ArtifactNotFoundError(
             f"The following files were not found: {', '.join(missing_files)}"
@@ -103,25 +103,25 @@ def verify_artifacts(project_root, run_results_path, manifest_path):
 
 
 def get_project_root(args):
-    """Gets project root from arguments or environment and returns artifact paths."""
+    """Gets artifacts directory from arguments or environment and returns artifact paths."""
     if args.project_dir:
         root = Path(args.project_dir)
     elif project_dir := os.getenv("DBT_PROJECT_ROOT"):
         root = Path(project_dir)
     else:
         logger.error(
-            "DBT Project directory must be specified via --project-dir argument or DBT_PROJECT_ROOT environment variable"
+            "DBT Artifacts directory must be specified via --project-dir argument or DBT_PROJECT_ROOT environment variable"
         )
         # Raise exception instead of exiting
         raise ProjectDirError(
-            "DBT Project directory must be specified via --project-dir argument or DBT_PROJECT_ROOT environment variable"
+            "DBT Artifacts directory must be specified via --project-dir argument or DBT_PROJECT_ROOT environment variable"
         )
 
     # Return root and artifact paths
     return (
         root,
-        root / "target" / "run_results.json",
-        root / "target" / "manifest.json",
+        root / "run_results.json",
+        root / "manifest.json",
     )
 
 
@@ -320,13 +320,13 @@ def main():
     parser.add_argument(
         "--project-dir",
         type=str,
-        help="Path to the dbt project directory (required if DBT_PROJECT_ROOT env var is not set)",
+        help="Path to the directory containing dbt artifacts (manifest.json and run_results.json) (required if DBT_PROJECT_ROOT env var is not set)",
     )
     args = parser.parse_args()
 
     # Get project paths and verify artifacts
     project_root, run_results_path, manifest_path = get_project_root(args)
-    logger.info(f"Using dbt project directory: {project_root}")
+    logger.info(f"Using dbt artifacts directory: {project_root}")
     verify_artifacts(project_root, run_results_path, manifest_path)
 
     try:
