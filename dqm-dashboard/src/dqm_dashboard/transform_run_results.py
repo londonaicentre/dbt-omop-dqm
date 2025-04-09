@@ -222,7 +222,7 @@ def get_model_row_counts(cur):
             r.threshold,
             r.generated_at
         FROM dbt_artifacts.run_results r
-        WHERE r.node_name LIKE 'dqm_row_count_anomalies_%'
+        WHERE r.node_name LIKE '%_dqm_row_count_anomalies_%'
           AND r.resource_type = 'test'
           AND NOT EXISTS (
               SELECT 1
@@ -239,8 +239,8 @@ def get_model_row_counts(cur):
     for test in rows:
         node_name = test["node_name"]
 
-        if node_name.startswith("dqm_row_count_anomalies_"):
-            prefix_removed = node_name[len("dqm_row_count_anomalies_") :]
+        if node_name.startswith("dbt_omop_dqm_dqm_row_count_anomalies_"):
+            prefix_removed = node_name[len("dbt_omop_dqm_dqm_row_count_anomalies_") :]
             model_name = prefix_removed.rsplit("_", 1)[0]
 
             # Get historical counts
