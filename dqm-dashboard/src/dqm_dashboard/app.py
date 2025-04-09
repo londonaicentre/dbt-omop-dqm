@@ -106,8 +106,8 @@ def load_css(css_file_path):
 def get_status_color_emoji(status):
     """Returns color and emoji based on status string."""
     if status == "Test Passed":
-        return "green", "✅"
-    return "red", "❌"
+        return "green", "✔️"
+    return "red", "✖️"
 
 
 # Page Rendering Functions
@@ -393,7 +393,7 @@ elif page == PAGE_HISTORICAL:
                             else "red"
                         )
                         status_emoji = (
-                            "✅" if row["threshold_status"] == "Test Passed" else "❌"
+                            "✔️" if row["threshold_status"] == "Test Passed" else "✖️"
                         )
                         expander_label = f"{status_emoji} {row['clean_test_name']}"
 
@@ -608,9 +608,9 @@ elif page == PAGE_ROW_COUNT:
                             else "orange"
                         )
                         status_emoji = (
-                            "✅"
+                            "✔️"
                             if status in ["Test Passed", "Within Threshold"]
-                            else "❌"
+                            else "✖️"
                             if status in ["Above Threshold", "Below Threshold"]
                             else "⚠️"
                         )

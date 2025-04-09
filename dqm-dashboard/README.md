@@ -26,20 +26,20 @@ Use `uv run` to execute commands within the managed virtual environment.
 To parse `run_results.json` and `manifest.json` from a dbt project run and load them into the database:
 ```bash
 # Replace '../path/to/dbt/project' with the actual path to your dbt project root
-uv run python -m dqm_dashboard.parse_dbt_artifacts --project-dir ../path/to/dbt/project
+uv run parse-artifacts --artifacts-dir /path/to/artifacts
 ```
 
 ### 2. Transform Run Results
 
 To process the parsed dbt results, calculate thresholds, and populate the metrics tables:
 ```bash
-uv run python -m dqm_dashboard.transform_run_results
+uv run transform-artifacts
 ```
 
 ### 3. Streamlit Dashboard
 
 To start the web application:
 ```bash
-uv run dqm-dashboard
+uv run streamlit-dashboard
 ```
 This uses the entry point defined in `pyproject.toml`. Access the dashboard via the URL provided by Streamlit in your terminal.
