@@ -19,11 +19,11 @@
                 severity='warn',
                 meta={
                     'category': 'plausibility',
-                    'threshold_type': 'static_percentage',
+                    'threshold_type': 'static_number',
                     'threshold': threshold
                 },
-                description='Returns percentage of clinical events that occur after a death date',
-                fail_calc='pct_violated_rows'
+                description='Returns absolute count of clinical events that occur after a death date',
+                fail_calc='num_violated_rows'
             )
         }}
 
@@ -94,10 +94,7 @@
         )
 
         select
-            round(
-                (total_violations / nullif(total_events, 0)) * 100,
-                0
-            )::int as pct_violated_rows
+            total_violations as  num_violated_rows
         from all_violations
 
 {% endtest %}
